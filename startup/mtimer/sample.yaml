@@ -1,0 +1,6 @@
+sample:
+  description: Start up application for GPIO
+  name: Start up GPIO
+common:
+    tags: startup
+    depends_on: gpio
