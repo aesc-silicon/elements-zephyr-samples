@@ -1,0 +1,6 @@
+sample:
+  description: Start up application for SPI
+  name: Start up SPI
+common:
+    tags: startup
+    depends_on: spi
