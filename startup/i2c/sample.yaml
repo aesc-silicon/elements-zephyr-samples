@@ -1,0 +1,6 @@
+sample:
+  description: Start up application for I2c
+  name: Start up I2C
+common:
+    tags: startup
+    depends_on: i2c
