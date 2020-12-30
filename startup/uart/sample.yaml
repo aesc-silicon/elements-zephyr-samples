@@ -1,6 +1,0 @@
-sample:
-  description: Start up application for UART
-  name: Start up UART
-common:
-    tags: startup
-    depends_on: uart

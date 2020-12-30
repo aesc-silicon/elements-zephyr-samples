@@ -1,6 +1,0 @@
-sample:
-  description: Demo application for LEDs
-  name: LED demo
-common:
-    tags: demo
-    depends_on: gpio
