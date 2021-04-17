@@ -25,24 +25,24 @@ void button_pressed(const struct device *gpio, struct gpio_callback *cb,
 	int ret;
 
 	printk("IRQ triggered for pin %i at %d\n", pins, k_cycle_get_32());
-	if (pins == BIT(KEY_CURSOR_UP_PIN)) {
-		cursor_tx.command = MOVE_UP;
+	if (pins == BIT(PLYR1_ARROW_UP_PIN)) {
+		cursor_tx.command = PLYR1_ARROW_UP;
 		printk("Cursor up pressed\n");
 	}
-	if (pins == BIT(KEY_CURSOR_RIGHT_PIN)) {
-		cursor_tx.command = MOVE_RIGHT;
+	if (pins == BIT(PLYR1_ARROW_RIGHT_PIN)) {
+		cursor_tx.command = PLYR1_ARROW_RIGHT;
 		printk("Cursor right pressed\n");
 	}
-	if (pins == BIT(KEY_CURSOR_DOWN_PIN)) {
-		cursor_tx.command = MOVE_DOWN;
+	if (pins == BIT(PLYR1_ARROW_DOWN_PIN)) {
+		cursor_tx.command = PLYR1_ARROW_DOWN;
 		printk("Cursor down pressed\n");
 	}
-	if (pins == BIT(KEY_CURSOR_LEFT_PIN)) {
-		cursor_tx.command = MOVE_LEFT;
+	if (pins == BIT(PLYR1_ARROW_LEFT_PIN)) {
+		cursor_tx.command = PLYR1_ARROW_LEFT;
 		printk("Cursor left pressed\n");
 	}
-	if (pins == BIT(KEY_BUTTON_A_PIN)) {
-		cursor_tx.command = BUTTON_A;
+	if (pins == BIT(PLYR1_SELECT_PIN)) {
+		cursor_tx.command = PLYR1_SELECT;
 		printk("Cursor enter pressed\n");
 	}
 
@@ -95,28 +95,33 @@ void controller(void)
 
 	int ret;
 
-	ret = initialize_button(KEY_CURSOR_UP_CTRL, KEY_CURSOR_UP_PIN,
-				KEY_CURSOR_UP_FLAGS);
+	ret = initialize_button(PLYR1_ARROW_UP_CTRL,
+				PLYR1_ARROW_UP_PIN,
+				PLYR1_ARROW_UP_FLAGS);
 	if (ret < 0)
 		return;
 
-	ret = initialize_button(KEY_CURSOR_RIGHT_CTRL, KEY_CURSOR_RIGHT_PIN,
-				KEY_CURSOR_RIGHT_FLAGS);
+	ret = initialize_button(PLYR1_ARROW_RIGHT_CTRL,
+				PLYR1_ARROW_RIGHT_PIN,
+				PLYR1_ARROW_RIGHT_FLAGS);
 	if (ret < 0)
 		return;
 
-	ret = initialize_button(KEY_CURSOR_DOWN_CTRL, KEY_CURSOR_DOWN_PIN,
-				KEY_CURSOR_DOWN_FLAGS);
+	ret = initialize_button(PLYR1_ARROW_DOWN_CTRL,
+				PLYR1_ARROW_DOWN_PIN,
+				PLYR1_ARROW_DOWN_FLAGS);
 	if (ret < 0)
 		return;
 
-	ret = initialize_button(KEY_CURSOR_LEFT_CTRL, KEY_CURSOR_LEFT_PIN,
-				KEY_CURSOR_LEFT_FLAGS);
+	ret = initialize_button(PLYR1_ARROW_LEFT_CTRL,
+				PLYR1_ARROW_LEFT_PIN,
+				PLYR1_ARROW_LEFT_FLAGS);
 	if (ret < 0)
 		return;
 
-	ret = initialize_button(KEY_BUTTON_A_CTRL, KEY_BUTTON_A_PIN,
-				KEY_BUTTON_A_FLAGS);
+	ret = initialize_button(PLYR1_SELECT_CTRL,
+				PLYR1_SELECT_PIN,
+				PLYR1_SELECT_FLAGS);
 	if (ret < 0)
 		return;
 
@@ -125,5 +130,5 @@ void controller(void)
 	}
 }
 
-K_THREAD_DEFINE(controller_tid, CONTROLLER_STACKSIZE, controller, NULL, NULL, NULL,
-		CONTROLLER_PRIORITY, 0, 0);
+K_THREAD_DEFINE(controller_tid, CONTROLLER_STACKSIZE, controller, NULL, NULL,
+		NULL, CONTROLLER_PRIORITY, 0, 0);

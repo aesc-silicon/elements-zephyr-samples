@@ -6,35 +6,42 @@ struct cursor_data {
 	unsigned int command;
 };
 
-#define MOVE_UP		0x1 << 0
-#define MOVE_RIGHT	0x1 << 1
-#define MOVE_DOWN	0x1 << 2
-#define MOVE_LEFT	0x1 << 3
-#define BUTTON_A	0x1 << 4
+#define PLYR1_ARROW_RIGHT	0x1 <<  0
+#define PLYR1_ARROW_UP		0x1 <<  1
+#define PLYR1_ARROW_LEFT	0x1 <<  2
+#define PLYR1_ARROW_DOWN	0x1 <<  3
+#define PLYR1_BACK_LEFT		0x1 <<  4
+#define PLYR1_BACK_RIGHT	0x1 <<  5
+#define PLYR1_A			0x1 <<  6
+#define PLYR1_B			0x1 <<  7
+#define PLYR1_X			0x1 <<  8
+#define PLYR1_Y			0x1 <<  9
+#define PLYR1_SELECT		0x1 << 10
+#define PLYR1_START		0x1 << 11
 
-#define KEY_CURSOR_UP		DT_PATH(keys, cursor_up)
-#define KEY_CURSOR_UP_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(KEY_CURSOR_UP, gpios, 0), label)
-#define KEY_CURSOR_UP_PIN	DT_PHA_BY_IDX(KEY_CURSOR_UP, gpios, 0, pin)
-#define KEY_CURSOR_UP_FLAGS	DT_PHA_BY_IDX(KEY_CURSOR_UP, gpios, 0, flags)
+#define PLYR1_ARROW_RIGHT_KEY	DT_PATH(keys, player1_arrow_right)
+#define PLYR1_ARROW_RIGHT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_RIGHT_KEY, gpios, 0), label)
+#define PLYR1_ARROW_RIGHT_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_RIGHT_KEY, gpios, 0, pin)
+#define PLYR1_ARROW_RIGHT_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_RIGHT_KEY, gpios, 0, flags)
 
-#define KEY_CURSOR_RIGHT	DT_PATH(keys, cursor_right)
-#define KEY_CURSOR_RIGHT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(KEY_CURSOR_RIGHT, gpios, 0), label)
-#define KEY_CURSOR_RIGHT_PIN	DT_PHA_BY_IDX(KEY_CURSOR_RIGHT, gpios, 0, pin)
-#define KEY_CURSOR_RIGHT_FLAGS	DT_PHA_BY_IDX(KEY_CURSOR_RIGHT, gpios, 0, flags)
+#define PLYR1_ARROW_UP_KEY	DT_PATH(keys, player1_arrow_up)
+#define PLYR1_ARROW_UP_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_UP_KEY, gpios, 0), label)
+#define PLYR1_ARROW_UP_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_UP_KEY, gpios, 0, pin)
+#define PLYR1_ARROW_UP_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_UP_KEY, gpios, 0, flags)
 
-#define KEY_CURSOR_DOWN		DT_PATH(keys, cursor_down)
-#define KEY_CURSOR_DOWN_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(KEY_CURSOR_DOWN, gpios, 0), label)
-#define KEY_CURSOR_DOWN_PIN	DT_PHA_BY_IDX(KEY_CURSOR_DOWN, gpios, 0, pin)
-#define KEY_CURSOR_DOWN_FLAGS	DT_PHA_BY_IDX(KEY_CURSOR_DOWN, gpios, 0, flags)
+#define PLYR1_ARROW_LEFT_KEY	DT_PATH(keys, player1_arrow_left)
+#define PLYR1_ARROW_LEFT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_LEFT_KEY, gpios, 0), label)
+#define PLYR1_ARROW_LEFT_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_LEFT_KEY, gpios, 0, pin)
+#define PLYR1_ARROW_LEFT_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_LEFT_KEY, gpios, 0, flags)
 
-#define KEY_CURSOR_LEFT		DT_PATH(keys, cursor_left)
-#define KEY_CURSOR_LEFT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(KEY_CURSOR_LEFT, gpios, 0), label)
-#define KEY_CURSOR_LEFT_PIN	DT_PHA_BY_IDX(KEY_CURSOR_LEFT, gpios, 0, pin)
-#define KEY_CURSOR_LEFT_FLAGS	DT_PHA_BY_IDX(KEY_CURSOR_LEFT, gpios, 0, flags)
+#define PLYR1_ARROW_DOWN_KEY	DT_PATH(keys, player1_arrow_down)
+#define PLYR1_ARROW_DOWN_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_DOWN_KEY, gpios, 0), label)
+#define PLYR1_ARROW_DOWN_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_DOWN_KEY, gpios, 0, pin)
+#define PLYR1_ARROW_DOWN_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_DOWN_KEY, gpios, 0, flags)
 
-#define KEY_BUTTON_A	DT_PATH(keys, cursor_enter)
-#define KEY_BUTTON_A_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(KEY_BUTTON_A, gpios, 0), label)
-#define KEY_BUTTON_A_PIN	DT_PHA_BY_IDX(KEY_BUTTON_A, gpios, 0, pin)
-#define KEY_BUTTON_A_FLAGS	DT_PHA_BY_IDX(KEY_BUTTON_A, gpios, 0, flags)
+#define PLYR1_SELECT_KEY	DT_PATH(keys, player1_select)
+#define PLYR1_SELECT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_SELECT_KEY, gpios, 0), label)
+#define PLYR1_SELECT_PIN	DT_PHA_BY_IDX(PLYR1_SELECT_KEY, gpios, 0, pin)
+#define PLYR1_SELECT_FLAGS	DT_PHA_BY_IDX(PLYR1_SELECT_KEY, gpios, 0, flags)
 
 #endif /* CONTROLLER_H */

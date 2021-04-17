@@ -30,6 +30,12 @@
 
 #include "background.h"
 
+#define MOVE_RIGHT	0x1 <<  0
+#define MOVE_UP		0x1 <<  1
+#define MOVE_LEFT	0x1 <<  2
+#define MOVE_DOWN	0x1 <<  3
+
+
 extern struct k_fifo cursor_fifo;
 
 void inline write_pixel(volatile unsigned int *framebuffer, int address, int pixel)
@@ -208,23 +214,23 @@ void pixelmover(void)
 
 		printk("Command received: %i\n", cursor->command);
 		switch (cursor->command) {
-		case MOVE_UP:
+		case PLYR1_ARROW_UP:
 			if (direction != MOVE_DOWN)
 				direction = cursor->command;
 			break;
-		case MOVE_RIGHT:
+		case PLYR1_ARROW_RIGHT:
 			if (direction != MOVE_LEFT)
 				direction = cursor->command;
 			break;
-		case MOVE_DOWN:
+		case PLYR1_ARROW_DOWN:
 			if (direction != MOVE_UP)
 				direction = cursor->command;
 			break;
-		case MOVE_LEFT:
+		case PLYR1_ARROW_LEFT:
 			if (direction != MOVE_RIGHT)
 				direction = cursor->command;
 			break;
-		case BUTTON_A:
+		case PLYR1_SELECT:
 			/* Wait for first button A input to start */
 			if (!start) {
 				start = true;
