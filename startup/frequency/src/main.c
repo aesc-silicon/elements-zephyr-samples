@@ -34,7 +34,7 @@ void frequency(void)
 
 	while (1) {
 		count = *device;
-		tmp = (1 * 1000 * 1000) / (((count * 10 * 1000) / 256) / 4);
+		tmp = (1 * 1000 * 1000) / ((count * 10 * 1000) / (256 * 4));
 		value = tmp * 1000000;
 		printk("%ld Hz (%d counts)\n", value, count);
 		k_sleep(K_SECONDS(1));
