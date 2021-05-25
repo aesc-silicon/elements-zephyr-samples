@@ -24,7 +24,7 @@ void button_pressed(const struct device *gpio, struct gpio_callback *cb,
 	struct cursor_data cursor_tx;
 	int ret;
 
-	printk("IRQ triggered for pin %i at %d\n", pins, k_cycle_get_32());
+	printk("IRQ triggered for pin %x at %d\n", pins, k_cycle_get_32());
 	if (pins == BIT(PLYR1_ARROW_UP_PIN)) {
 		cursor_tx.command = PLYR1_ARROW_UP;
 		printk("Cursor up pressed\n");
