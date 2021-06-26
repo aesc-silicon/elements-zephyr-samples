@@ -14,10 +14,11 @@
 #include "controller.h"
 #include "threads.h"
 
-#define RED		(0xF << 0)
-#define GREEN		(0xF << 4)
-#define BLUE		(0xF << 8)
-#define WHITE		(RED | GREEN | BLUE)
+
+#define RED		0x011E
+#define GREEN		0x01E1
+#define BLUE		0x0E11
+#define WHITE		0x0FFF
 #define BLACK		0x0000
 #define GREY		0x0AAA
 
@@ -99,14 +100,7 @@ int random_pixel()
 
 int random_color()
 {
-	int i;
-	i = k_cycle_get_32() % 3;
-
-	if (i == 0)
-		return RED;
-	if (i == 1)
-		return GREEN;
-	return BLUE;
+	return (k_cycle_get_32() + 100) & 0xEEE;
 }
 
 void exit_game(volatile unsigned int *framebuffer)
@@ -119,9 +113,9 @@ void exit_game(volatile unsigned int *framebuffer)
 void framesync(void)
 {
 	int i;
-	volatile unsigned int *framebuffer = (unsigned int *)0xF0050000;
+	volatile unsigned int *framebuffer = (unsigned int *)0xF0060000;
 	unsigned short loot;
-	unsigned int snake_length = 5;
+	unsigned int snake_length = 7;
 	unsigned int pixel;
 	unsigned int snake_direction;
 
@@ -172,6 +166,7 @@ void framesync(void)
 			snake_nodes[snake_length].color = color;
 			snake_length++;
 			loot = random_pixel();
+			color = random_color();
 		} else {
 			write_pixel(framebuffer, snake_nodes[0].pixel, BLACK);
 			for (i = 0; i < snake_length - 1; i++) {
@@ -201,7 +196,7 @@ void framesync(void)
 			write_pixel(framebuffer, snake_nodes[i].pixel,
 						 snake_nodes[i].color);
 		}
-		k_sleep(K_MSEC(500));
+		k_sleep(K_MSEC(250));
 	}
 }
 
@@ -212,7 +207,6 @@ void pixelmover(void)
 	while (1) {
 		cursor = k_fifo_get(&cursor_fifo, K_FOREVER);
 
-		printk("Command received: %i\n", cursor->command);
 		switch (cursor->command) {
 		case PLYR1_ARROW_UP:
 			if (direction != MOVE_DOWN)
@@ -236,12 +230,7 @@ void pixelmover(void)
 				start = true;
 				break;
 			}
-			if (color == RED)
-				color = GREEN;
-			else if (color == GREEN)
-				color = BLUE;
-			else if (color == BLUE)
-				color = RED;
+			color = random_color();
 			break;
 		}
 	}

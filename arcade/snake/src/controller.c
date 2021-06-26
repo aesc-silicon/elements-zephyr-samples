@@ -24,7 +24,6 @@ void button_pressed(const struct device *gpio, struct gpio_callback *cb,
 	struct cursor_data cursor_tx;
 	int ret;
 
-	printk("IRQ triggered for pin %x at %d\n", pins, k_cycle_get_32());
 	if (pins == BIT(PLYR1_ARROW_UP_PIN)) {
 		cursor_tx.command = PLYR1_ARROW_UP;
 		printk("Cursor up pressed\n");
@@ -46,7 +45,6 @@ void button_pressed(const struct device *gpio, struct gpio_callback *cb,
 		printk("Cursor enter pressed\n");
 	}
 
-	printk("Command send: %i\n", cursor_tx.command);
 	ret = k_fifo_alloc_put(&cursor_fifo, &cursor_tx);
 	if (ret == -ENOMEM)
 		printk("Unable to add cursor command to FIFO: -ENOMEM\n");
