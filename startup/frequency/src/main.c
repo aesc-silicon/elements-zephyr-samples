@@ -32,6 +32,7 @@ void frequency(void)
 	unsigned long tmp;
 	unsigned long value;
 
+	k_sleep(K_MSEC(1));
 	while (1) {
 		count = *device;
 		tmp = (1 * 1000 * 1000) / ((count * 10 * 1000) / (256 * 4));
