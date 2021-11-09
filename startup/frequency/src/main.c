@@ -35,7 +35,7 @@ void frequency(void)
 	unsigned int frequency;
 	unsigned int value;
 
-	k_sleep(K_MSEC(20));
+	k_sleep(K_MSEC(3));
 	while (1) {
 		count = *(device + 2);
 		duration = count * 10;
