@@ -27,17 +27,22 @@
 
 void frequency(void)
 {
-	volatile unsigned int *device = (unsigned int *)0xF0060004;
+	volatile unsigned int *device = (unsigned int *)0xF0060000;
+	unsigned int divider = *(device + 1);
 	unsigned int count;
-	unsigned long tmp;
-	unsigned long value;
+	unsigned int duration;
+	unsigned int external_clock;
+	unsigned int frequency;
+	unsigned int value;
 
-	k_sleep(K_MSEC(1));
+	k_sleep(K_MSEC(20));
 	while (1) {
-		count = *device;
-		tmp = (1 * 1000 * 1000) / ((count * 10 * 1000) / (256 * 4));
-		value = tmp * 1000000;
-		printk("%ld Hz (%d counts)\n", value, count);
+		count = *(device + 2);
+		duration = count * 10;
+		external_clock = duration * 1000 / divider;
+		frequency = (1 * 1000 * 1000 * 1000) / external_clock;
+		value = frequency * 1000;
+		printk("%i Hz (%i counts)\n", value, count);
 		k_sleep(K_SECONDS(1));
 	}
 }
