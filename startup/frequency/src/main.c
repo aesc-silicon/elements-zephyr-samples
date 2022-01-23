@@ -1,6 +1,4 @@
 /*
- * Copyright (c) 2021 Phytec Messtechnik GmbH
- *
  * SPDX-License-Identifier: Apache-2.0
  */
 
