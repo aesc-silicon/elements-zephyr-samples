@@ -22,4 +22,4 @@ void nothing(void)
 }
 
 K_THREAD_DEFINE(nothing_tid, NOTHING_STACKSIZE, nothing, NULL, NULL, NULL,
- 		NOTHING_PRIORITY, 0, 0);
+		NOTHING_PRIORITY, 0, 0);

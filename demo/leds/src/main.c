@@ -43,4 +43,4 @@ void heartbeat(void)
 }
 
 K_THREAD_DEFINE(heartbeat_tid, HEARTBEAT_STACKSIZE, heartbeat, NULL, NULL, NULL,
- 		HEARTBEAT_PRIORITY, 0, 0);
+		HEARTBEAT_PRIORITY, 0, 0);
