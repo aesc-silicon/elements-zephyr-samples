@@ -30,6 +30,12 @@
 #define COMMAND_WAIT	0x2
 #define COMMAND_READ	0x3
 
+inline void send_bit(volatile unsigned int *reg, unsigned int level)
+{
+	*reg = DATA(0) | PIN(0) | level;
+	*reg = DATA(1) | PIN(0) | COMMAND_WAIT;
+}
+
 void pio(void)
 {
 	volatile unsigned int *readWrite = (unsigned int *)0xF0012000;
@@ -37,38 +43,19 @@ void pio(void)
 	unsigned int value;
 
 	*readWrite = DATA(0) | PIN(0) | COMMAND_HIGH;
-	*(readWrite + 2) = 860;
+	*(readWrite + 2) = 868;
 	*readWrite = DATA(2) | PIN(0) | COMMAND_WAIT;
 
-	*readWrite = DATA(0) | PIN(0) | COMMAND_LOW;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_HIGH;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_HIGH;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_HIGH;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_LOW;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_LOW;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_LOW;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_HIGH;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_LOW;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
-
-	*readWrite = DATA(0) | PIN(0) | COMMAND_HIGH;
-	*readWrite = DATA(1) | PIN(0) | COMMAND_WAIT;
+	send_bit(readWrite, COMMAND_LOW);
+	send_bit(readWrite, COMMAND_HIGH);
+	send_bit(readWrite, COMMAND_HIGH);
+	send_bit(readWrite, COMMAND_HIGH);
+	send_bit(readWrite, COMMAND_LOW);
+	send_bit(readWrite, COMMAND_LOW);
+	send_bit(readWrite, COMMAND_LOW);
+	send_bit(readWrite, COMMAND_HIGH);
+	send_bit(readWrite, COMMAND_LOW);
+	send_bit(readWrite, COMMAND_HIGH);
 
 	*readWrite = DATA(0) | PIN(1) | COMMAND_READ;
 
