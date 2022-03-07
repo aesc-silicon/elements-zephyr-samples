@@ -111,7 +111,7 @@ void exit_game(volatile unsigned int *framebuffer)
 void framesync(void)
 {
 	int i;
-	volatile unsigned int *framebuffer = (unsigned int *)0xF0060000;
+	volatile unsigned int *framebuffer = (unsigned int *)0xF0050000;
 	unsigned short loot;
 	unsigned int snake_length = 7;
 	unsigned int pixel;
