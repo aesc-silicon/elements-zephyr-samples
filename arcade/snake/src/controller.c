@@ -17,7 +17,7 @@ K_FIFO_DEFINE(cursor_fifo);
 static struct gpio_callback button_cb_data[5];
 
 void button_pressed(const struct device *gpio, struct gpio_callback *cb,
-		 uint32_t pins)
+		    uint32_t pins)
 {
 	struct cursor_data cursor_tx;
 	int ret;
@@ -40,7 +40,7 @@ void button_pressed(const struct device *gpio, struct gpio_callback *cb,
 	}
 	if (pins == BIT(PLYR1_SELECT_PIN)) {
 		cursor_tx.command = PLYR1_SELECT;
-		printk("Cursor enter pressed\n");
+		printk("Cursor select pressed\n");
 	}
 
 	ret = k_fifo_alloc_put(&cursor_fifo, &cursor_tx);

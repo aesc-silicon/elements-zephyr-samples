@@ -194,7 +194,7 @@ void framesync(void)
 			write_pixel(framebuffer, snake_nodes[i].pixel,
 						 snake_nodes[i].color);
 		}
-		k_sleep(K_MSEC(250));
+		k_sleep(K_MSEC(150));
 	}
 }
 
