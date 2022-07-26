@@ -16,7 +16,8 @@ void heartbeat(void)
 	led_dev = device_get_binding(LED_HEARTBEAT_CTRL);
 	__ASSERT_NO_MSG(led_dev != NULL);
 
-	gpio_pin_configure(led_dev, LED_HEARTBEAT_PIN, LED_HEARTBEAT_FLAGS);
+	gpio_pin_configure(led_dev, LED_HEARTBEAT_PIN,
+		LED_HEARTBEAT_FLAGS | GPIO_OUTPUT);
 
 	while (1) {
 		gpio_pin_set(led_dev, LED_HEARTBEAT_PIN, 1);
