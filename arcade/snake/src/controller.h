@@ -19,29 +19,10 @@ struct cursor_data {
 #define PLYR1_SELECT		0x1 << 10
 #define PLYR1_START		0x1 << 11
 
-#define PLYR1_ARROW_RIGHT_KEY	DT_PATH(keys, player1_arrow_right)
-#define PLYR1_ARROW_RIGHT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_RIGHT_KEY, gpios, 0), label)
-#define PLYR1_ARROW_RIGHT_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_RIGHT_KEY, gpios, 0, pin)
-#define PLYR1_ARROW_RIGHT_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_RIGHT_KEY, gpios, 0, flags)
-
-#define PLYR1_ARROW_UP_KEY	DT_PATH(keys, player1_arrow_up)
-#define PLYR1_ARROW_UP_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_UP_KEY, gpios, 0), label)
-#define PLYR1_ARROW_UP_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_UP_KEY, gpios, 0, pin)
-#define PLYR1_ARROW_UP_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_UP_KEY, gpios, 0, flags)
-
-#define PLYR1_ARROW_LEFT_KEY	DT_PATH(keys, player1_arrow_left)
-#define PLYR1_ARROW_LEFT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_LEFT_KEY, gpios, 0), label)
-#define PLYR1_ARROW_LEFT_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_LEFT_KEY, gpios, 0, pin)
-#define PLYR1_ARROW_LEFT_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_LEFT_KEY, gpios, 0, flags)
-
-#define PLYR1_ARROW_DOWN_KEY	DT_PATH(keys, player1_arrow_down)
-#define PLYR1_ARROW_DOWN_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_ARROW_DOWN_KEY, gpios, 0), label)
-#define PLYR1_ARROW_DOWN_PIN	DT_PHA_BY_IDX(PLYR1_ARROW_DOWN_KEY, gpios, 0, pin)
-#define PLYR1_ARROW_DOWN_FLAGS	DT_PHA_BY_IDX(PLYR1_ARROW_DOWN_KEY, gpios, 0, flags)
-
-#define PLYR1_SELECT_KEY	DT_PATH(keys, player1_select)
-#define PLYR1_SELECT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(PLYR1_SELECT_KEY, gpios, 0), label)
-#define PLYR1_SELECT_PIN	DT_PHA_BY_IDX(PLYR1_SELECT_KEY, gpios, 0, pin)
-#define PLYR1_SELECT_FLAGS	DT_PHA_BY_IDX(PLYR1_SELECT_KEY, gpios, 0, flags)
+#define PLYR1_ARROW_RIGHT_NODE	GPIO_DT_SPEC_GET(DT_PATH(keys, player1_arrow_right), gpios)
+#define PLYR1_ARROW_UP_NODE	GPIO_DT_SPEC_GET(DT_PATH(keys, player1_arrow_up), gpios)
+#define PLYR1_ARROW_LEFT_NODE	GPIO_DT_SPEC_GET(DT_PATH(keys, player1_arrow_left), gpios)
+#define PLYR1_ARROW_DOWN_NODE	GPIO_DT_SPEC_GET(DT_PATH(keys, player1_arrow_down), gpios)
+#define PLYR1_SELECT_NODE	GPIO_DT_SPEC_GET(DT_PATH(keys, player1_select), gpios)
 
 #endif /* CONTROLLER_H */

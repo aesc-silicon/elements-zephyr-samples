@@ -2,15 +2,14 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr.h>
-#include <device.h>
-#include <drivers/gpio.h>
-#include <drivers/uart.h>
-#include <drivers/spi.h>
-#include <sys/printk.h>
-#include <sys/__assert.h>
+#include <zephyr/kernel.h>
+#include <zephyr/device.h>
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/uart.h>
+#include <zephyr/drivers/spi.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/sys/__assert.h>
 #include <string.h>
-#include <kernel.h>
 
 /* size of stack area used by each thread */
 #define STACKSIZE 2048

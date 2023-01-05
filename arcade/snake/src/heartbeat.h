@@ -1,9 +1,0 @@
-#ifndef HEARTBEAT_H
-#define HEARTBEAT_H
-
-#define LED_HEARTBEAT		DT_PATH(leds, heartbeat)
-#define LED_HEARTBEAT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(LED_HEARTBEAT, gpios, 0), label)
-#define LED_HEARTBEAT_PIN	DT_PHA_BY_IDX(LED_HEARTBEAT, gpios, 0, pin)
-#define LED_HEARTBEAT_FLAGS	DT_PHA_BY_IDX(LED_HEARTBEAT, gpios, 0, flags)
-
-#endif /* HEARTBEAT_H */

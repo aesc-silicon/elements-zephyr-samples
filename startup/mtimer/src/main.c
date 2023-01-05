@@ -2,12 +2,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <zephyr.h>
-#include <device.h>
-#include <drivers/gpio.h>
-#include <drivers/uart.h>
-#include <sys/printk.h>
-#include <sys/__assert.h>
+#include <zephyr/kernel.h>
+#include <zephyr/device.h>
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/drivers/uart.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/sys/__assert.h>
 #include <string.h>
 
 /* size of stack area used by each thread */
@@ -16,29 +16,49 @@
 /* scheduling priority used by each thread */
 #define HEARTBEAT_PRIORITY 5
 
-#define LED_HEARTBEAT		DT_PATH(leds, heartbeat)
-#define LED_HEARTBEAT_CTRL	DT_PROP(DT_PHANDLE_BY_IDX(LED_HEARTBEAT, gpios, 0), label)
-#define LED_HEARTBEAT_PIN	DT_PHA_BY_IDX(LED_HEARTBEAT, gpios, 0, pin)
-#define LED_HEARTBEAT_FLAGS	DT_PHA_BY_IDX(LED_HEARTBEAT, gpios, 0, flags)
+#define HEARTBEAT_NODE		DT_PATH(leds, heartbeat)
 
-void heartbeat(void)
-{
-	const struct device *led_dev;
+#if !DT_NODE_HAS_STATUS(HEARTBEAT_NODE, okay)
+#error "Unsupported board: heartbeat devicetree alias is not defined"
+#endif
 
-	led_dev = device_get_binding(LED_HEARTBEAT_CTRL);
-	__ASSERT_NO_MSG(led_dev != NULL);
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(HEARTBEAT_NODE, gpios);
 
-	gpio_pin_configure(led_dev, LED_HEARTBEAT_PIN,
-		LED_HEARTBEAT_FLAGS | GPIO_OUTPUT);
+void heartbeat(void) {
+	int ret;
+
+	if (!device_is_ready(led.port)) {
+		return;
+	}
+
+	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
+	if (ret < 0) {
+		return;
+	}
 
 	while (1) {
-		gpio_pin_set(led_dev, LED_HEARTBEAT_PIN, 1);
+		ret = gpio_pin_set_dt(&led, 1);
+		if (ret < 0) {
+			return;
+		}
 		k_sleep(K_MSEC(150));
-		gpio_pin_set(led_dev, LED_HEARTBEAT_PIN, 0);
+
+		ret = gpio_pin_set_dt(&led, 0);
+		if (ret < 0) {
+			return;
+		}
 		k_sleep(K_MSEC(50));
-		gpio_pin_set(led_dev, LED_HEARTBEAT_PIN, 1);
+
+		ret = gpio_pin_set_dt(&led, 1);
+		if (ret < 0) {
+			return;
+		}
 		k_sleep(K_MSEC(150));
-		gpio_pin_set(led_dev, LED_HEARTBEAT_PIN, 0);
+
+		ret = gpio_pin_set_dt(&led, 0);
+		if (ret < 0) {
+			return;
+		}
 		k_sleep(K_SECONDS(1));
 	}
 }

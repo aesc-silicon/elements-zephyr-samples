@@ -5,22 +5,8 @@
 #include <zephyr/kernel.h>
 #include <zephyr/device.h>
 #include <zephyr/drivers/gpio.h>
-#include <zephyr/drivers/uart.h>
-#include <zephyr/sys/printk.h>
 #include <zephyr/sys/__assert.h>
-#include <string.h>
-
-/* size of stack area used by each thread */
-#define HEARTBEAT_STACKSIZE 2048
-
-/* scheduling priority used by each thread */
-#define HEARTBEAT_PRIORITY 5
-
-#define HEARTBEAT_NODE		DT_PATH(leds, heartbeat)
-
-#if !DT_NODE_HAS_STATUS(HEARTBEAT_NODE, okay)
-#error "Unsupported board: heartbeat devicetree alias is not defined"
-#endif
+#include "heartbeat.h"
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(HEARTBEAT_NODE, gpios);
 
@@ -62,6 +48,3 @@ void heartbeat(void) {
 		k_sleep(K_SECONDS(1));
 	}
 }
-
-K_THREAD_DEFINE(heartbeat_tid, HEARTBEAT_STACKSIZE, heartbeat, NULL, NULL, NULL,
-		HEARTBEAT_PRIORITY, 0, 0);

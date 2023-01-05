@@ -3,4 +3,4 @@ cmake_minimum_required(VERSION 3.13.1)
 find_package(Zephyr)
 project(gpio)
 
-target_sources(app PRIVATE src/main.c src/controller.c src/heartbeat.c)
+target_sources(app PRIVATE src/main.c src/controller.c ../../common/heartbeat.c)
