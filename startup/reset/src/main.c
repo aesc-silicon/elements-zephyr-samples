@@ -11,19 +11,17 @@
 #include <zephyr/sys/__assert.h>
 #include <string.h>
 
-#include "../../../common/heartbeat.h"
-
 /* size of stack area used by each thread */
-#define FREQUENCY_STACKSIZE 2048
+#define STACKSIZE 2048
 
 /* scheduling priority used by each thread */
-#define FREQUENCY_PRIORITY 5
+#define PRIORITY 7
 
-void reset(void)
+void startup_reset(void)
 {
-	printk("Trigger cold reboot.\n");
-	k_sleep(K_MSEC(2));
-	sys_reboot(SYS_REBOOT_COLD);
+	printk("Triggering warm reboot.\n");
+	k_sleep(K_MSEC(1));
+	sys_reboot(SYS_REBOOT_WARM);
 
 	k_sleep(K_MSEC(1));
 	printk("Reset failed!\n");
@@ -33,8 +31,5 @@ void reset(void)
 	}
 }
 
-K_THREAD_DEFINE(heartbeat_tid, HEARTBEAT_STACKSIZE, heartbeat, NULL, NULL, NULL,
-		HEARTBEAT_PRIORITY, 0, 0);
-
-K_THREAD_DEFINE(reset_tid, FREQUENCY_STACKSIZE, reset, NULL, NULL, NULL,
-		FREQUENCY_PRIORITY, 0, 0);
+K_THREAD_DEFINE(startup_reset_tid, STACKSIZE, startup_reset, NULL, NULL, NULL,
+		PRIORITY, 0, 0);
