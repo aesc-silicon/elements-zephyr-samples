@@ -11,10 +11,10 @@
 #include <string.h>
 
 /* size of stack area used by each thread */
-#define HEARTBEAT_STACKSIZE 2048
+#define MTIMER_STACKSIZE 2048
 
 /* scheduling priority used by each thread */
-#define HEARTBEAT_PRIORITY 5
+#define MTIMER_PRIORITY 5
 
 #define HEARTBEAT_NODE		DT_PATH(leds, heartbeat)
 
@@ -24,7 +24,7 @@
 
 static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(HEARTBEAT_NODE, gpios);
 
-void heartbeat(void) {
+void mtimer(void) {
 	int ret;
 
 	if (!device_is_ready(led.port)) {
@@ -41,19 +41,19 @@ void heartbeat(void) {
 		if (ret < 0) {
 			return;
 		}
-		k_sleep(K_MSEC(150));
+		k_msleep(1);
 
 		ret = gpio_pin_set_dt(&led, 0);
 		if (ret < 0) {
 			return;
 		}
-		k_sleep(K_MSEC(50));
+		k_msleep(5);
 
 		ret = gpio_pin_set_dt(&led, 1);
 		if (ret < 0) {
 			return;
 		}
-		k_sleep(K_MSEC(150));
+		k_msleep(10);
 
 		ret = gpio_pin_set_dt(&led, 0);
 		if (ret < 0) {
@@ -63,5 +63,5 @@ void heartbeat(void) {
 	}
 }
 
-K_THREAD_DEFINE(heartbeat_tid, HEARTBEAT_STACKSIZE, heartbeat, NULL, NULL, NULL,
-		HEARTBEAT_PRIORITY, 0, 0);
+K_THREAD_DEFINE(mtimer_tid, MTIMER_STACKSIZE, mtimer, NULL, NULL, NULL,
+		MTIMER_PRIORITY, 0, 0);

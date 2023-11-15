@@ -18,7 +18,9 @@
 
 void nothing(void)
 {
-	while (1) {}
+	while (1) {
+		k_sleep(K_SECONDS(1));
+	}
 }
 
 K_THREAD_DEFINE(nothing_tid, NOTHING_STACKSIZE, nothing, NULL, NULL, NULL,

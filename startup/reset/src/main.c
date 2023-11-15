@@ -20,7 +20,7 @@
 void startup_reset(void)
 {
 	printk("Triggering warm reboot.\n");
-	k_sleep(K_MSEC(1));
+	k_sleep(K_MSEC(5));
 	sys_reboot(SYS_REBOOT_WARM);
 
 	k_sleep(K_MSEC(1));
